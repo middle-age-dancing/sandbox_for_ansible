@@ -1,0 +1,26 @@
+---
+- name: Install Apache
+  hosts: app
+
+  vars:
+    apache_package_name: httpd
+    apache_service_name: httpd.apache_service_name
+    apache_notify_event: start apache service
+
+  tasks:
+    - name: Install the https package
+      ansible.builtin.yum:
+        name:
+          - '{{apache_package_name}}'
+        state: present
+      notify:
+        - '{{apache_notify_event}}'
+  handlers:
+    - name: Change the listening port.
+      ansible.builtin.lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: '^Listen '
+        line: 'Listen 8080'
+        validate: httpd -t -f %s
+      listen:
+        - '{{apache_notify_event}}'
