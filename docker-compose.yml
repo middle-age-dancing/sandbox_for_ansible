@@ -1,0 +1,42 @@
+version: '3'
+services:
+  thomas:
+    container_name: thomas
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    privileged: true
+    tty: true
+    restart: always
+    ports:
+      - '2022:22'
+  gordon:
+    container_name: gordon
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    privileged: true
+    tty: true
+    restart: always
+    ports:
+      - '2023:22'
+  james:
+    container_name: james
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    privileged: true
+    tty: true
+    restart: always
+    ports:
+      - '2024:22'
+  percy:
+    container_name: percy
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    privileged: true
+    tty: true
+    restart: always
+    ports:
+      - '2025:22'
