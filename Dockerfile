@@ -3,12 +3,16 @@ FROM ubuntu:latest
 ENV LC_ALL C.UTF-8
 
 # Install SSH server
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends openssh-server && \
+RUN apt update && \
+    apt install -y --no-install-recommends openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     echo "root:root" | chpasswd && \
     sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/" /etc/ssh/sshd_config && \
     sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/" /etc/ssh/sshd_config
+
+# Install Python
+RUN apt update && \
+    apt install -y --no-install-recommends python3 python3-pip
 
 # Register public key
 ADD id_rsa.pub /root/.ssh/

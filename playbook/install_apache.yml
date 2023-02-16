@@ -1,6 +1,6 @@
 ---
 - name: Install Apache
-  hosts: app
+  hosts: train
 
   vars:
     apache_package_name: httpd

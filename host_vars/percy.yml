@@ -1,0 +1,4 @@
+---
+ansible_host: docker_ansible_percy
+ansible_port: 2025
+ansible_user: root

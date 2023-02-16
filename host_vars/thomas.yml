@@ -1,0 +1,4 @@
+---
+ansible_host: docker_ansible_thomas
+ansible_port: 2022
+ansible_user: root
