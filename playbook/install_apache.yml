@@ -3,16 +3,17 @@
   hosts: train
 
   vars:
-    apache_package_name: httpd
+    apache_package_name: apache2
     apache_service_name: httpd.apache_service_name
-    apache_notify_event: start apache service
+    apache_notify_event: start apache2 service
 
   tasks:
     - name: Install the https package
-      ansible.builtin.yum:
+      ansible.builtin.apt:
         name:
           - '{{apache_package_name}}'
         state: present
+      become: true
       notify:
         - '{{apache_notify_event}}'
   handlers:

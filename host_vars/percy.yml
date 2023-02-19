@@ -2,3 +2,4 @@
 ansible_host: docker_ansible_percy
 ansible_port: 2025
 ansible_user: root
+ansible_python_interpreter: /usr/bin/python3

@@ -12,7 +12,7 @@ RUN apt update && \
 
 # Install Python
 RUN apt update && \
-    apt install -y --no-install-recommends python3 python3-pip
+    apt install -y --no-install-recommends python3 python3-pip python3-dnf
 
 # Register public key
 ADD id_rsa.pub /root/.ssh/
