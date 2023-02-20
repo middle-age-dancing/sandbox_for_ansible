@@ -46,3 +46,10 @@ docker-compose up
 ```
 
 5. ssh で入れるようになってるはず
+6. playbook 実行テスト
+
+```
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.yml playbook/install_apache.yml
+```
+
+`ANSIBLE_HOST_KEY_CHECKING` は環境変数に仕込んでもいいが他の ssh に影響出るので非推奨(後で Makefile 作る)
