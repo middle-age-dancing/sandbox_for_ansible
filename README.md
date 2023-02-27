@@ -4,52 +4,20 @@ ansible 練習
 
 ## setup
 
-1. ssh 鍵を作ります
+1. docker 用の ssh 鍵を作って参照させるまで
 
 ```
-ssh-keygen -t rsa
+make ubuntu_mock_ssh_setup
 ```
 
-2. 作った公開鍵をルートディレクトリに `id_rsa.pub` で置いてください
-3. ssh の設定に以下追加
+2. モック環境立てる
 
 ```
-Host docker_ansible_thomas
-        HostName localhost
-        User root
-        IdentityFile ~/.ssh/id_rsa_ansible
-        Port 2022
-
-Host docker_ansible_gordon
-        HostName localhost
-        User root
-        IdentityFile ~/.ssh/id_rsa_ansible
-        Port 2023
-
-Host docker_ansible_james
-        HostName localhost
-        User root
-        IdentityFile ~/.ssh/id_rsa_ansible
-        Port 2024
-
-Host docker_ansible_percy
-        HostName localhost
-        User root
-        IdentityFile ~/.ssh/id_rsa_ansible
-        Port 2025
+make ubuntu_mock_launch
 ```
 
-4. 以下実行
+3. ansible 実行
 
 ```
-docker-compose up
+make ubuntu_mock_middleware_setup
 ```
-
-5. ssh で入れるようになってるはず
-6. playbook 実行テスト
-
-```
-ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts.yml playbook/install_apache.yml
-```
-
-`ANSIBLE_HOST_KEY_CHECKING` は環境変数に仕込んでもいいが他の ssh に影響出るので非推奨(後で Makefile 作る)
