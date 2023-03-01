@@ -3,9 +3,13 @@ FROM ubuntu:latest
 ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Install Utilities
+RUN apt update && \
+    apt install -y --no-install-recommends sudo git software-properties-common gpg-agent curl
+
 # Install SSH server
 RUN apt update && \
-    apt install -y --no-install-recommends openssh-server sudo git && \
+    apt install -y --no-install-recommends openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     echo "root:root" | chpasswd && \
     sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/" /etc/ssh/sshd_config && \
@@ -14,6 +18,15 @@ RUN apt update && \
 # Install Python
 RUN apt update && \
     apt install -y --no-install-recommends python3 python3-pip python3-dnf
+
+# Install PHP
+RUN apt update && \
+    apt install -y --no-install-recommends php
+
+# Install Go
+RUN add-apt-repository ppa:longsleep/golang-backports && \
+    apt update && \
+    apt install -y --no-install-recommends golang-go
 
 # Set Time Zone
 RUN apt update && \
