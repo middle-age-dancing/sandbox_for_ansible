@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
@@ -17,7 +17,7 @@ RUN apt update && \
 
 # Install Python
 RUN apt update && \
-    apt install -y --no-install-recommends python3 python3-pip python3-dnf
+    apt install -y --no-install-recommends python3 python3-pip
 
 # Install PHP
 RUN apt update && \
