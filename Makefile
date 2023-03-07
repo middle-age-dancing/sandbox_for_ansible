@@ -34,9 +34,22 @@ endef
 .PHONY: ubuntu_mock_ssh_setup
 export SSH_CONFIG_BODY
 ubuntu_mock_ssh_setup:
+	rm -rf $(SSH_KEY_FILE)* && \
+	ssh-keygen -R "[localhost]:2022" && \
+	ssh-keygen -R "[localhost]:2023" && \
+	ssh-keygen -R "[localhost]:2024" && \
+	ssh-keygen -R "[localhost]:2025" && \
 	ssh-keygen -t rsa -b 4096 -f $(SSH_KEY_FILE) -N $(SSH_PATHPHRASE) && \
 	mv $(SSH_KEY_FILE).pub id_rsa.pub && \
 	echo "$$SSH_CONFIG_BODY" >> $(SSH_CONFIG)
+
+
+.PHONY: ubuntu_mock_ssh_reload
+ubuntu_mock_ssh_reload:
+	ssh-keygen -R "[localhost]:2022" && \
+	ssh-keygen -R "[localhost]:2023" && \
+	ssh-keygen -R "[localhost]:2024" && \
+	ssh-keygen -R "[localhost]:2025"
 
 .PHONY: ubuntu_mock_launch
 ubuntu_mock_launch:

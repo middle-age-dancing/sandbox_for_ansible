@@ -4,12 +4,14 @@ ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install Utilities
-RUN apt update && \
-    apt install -y --no-install-recommends sudo git software-properties-common gpg-agent curl
+RUN apt autoclean && \
+    apt clean all && \
+    apt update && \
+    apt install -y sudo git software-properties-common gpg-agent curl init systemd
 
 # Install SSH server
 RUN apt update && \
-    apt install -y --no-install-recommends openssh-server && \
+    apt install -y openssh-server && \
     rm -rf /var/lib/apt/lists/* && \
     echo "root:root" | chpasswd && \
     sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/" /etc/ssh/sshd_config && \
@@ -17,20 +19,20 @@ RUN apt update && \
 
 # Install Python
 RUN apt update && \
-    apt install -y --no-install-recommends python3 python3-pip
+    apt install -y python3 python3-pip
 
 # Install PHP
 RUN apt update && \
-    apt install -y --no-install-recommends php
+    apt install -y php
 
 # Install Go
 RUN add-apt-repository ppa:longsleep/golang-backports && \
     apt update && \
-    apt install -y --no-install-recommends golang-go
+    apt install -y golang-go
 
 # Set Time Zone
 RUN apt update && \
-    apt install -y --no-install-recommends tzdata && \
+    apt install -y tzdata && \
     ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
 # Register public key
@@ -39,4 +41,6 @@ RUN mv /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys && \
     chmod 700 /root/.ssh && \
     chmod 600 /root/.ssh/authorized_keys
 
-CMD service ssh start && /bin/bash
+# CMD service ssh start && /bin/bash
+# NOTE: systemctl動かしたいのでinitをPID1で動かす必要がある。
+CMD ["sh","-c","exec /usr/sbin/init && systemctl restart sshd.service"]
