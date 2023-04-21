@@ -38,3 +38,7 @@ appendix:
 2. `cd isucon11-qualifier`
 3. `ansible-playbook -i standalone.hosts site.yml`
 4. `ssh docker_ansible_thomas` でベンチマークやコードが見れるようになる（VSCode でも接続可能）
+
+## ansible の playbook を実行したい場合
+
+hosts の向き先を `docker_ansible_thomas` にすると docker 内で実行される

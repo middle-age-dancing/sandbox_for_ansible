@@ -1,5 +1,0 @@
----
-ansible_host: docker_ansible_james
-ansible_port: 2024
-ansible_user: root
-ansible_python_interpreter: /usr/bin/python3
